@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "calendar-001-421015",
+  "private_key_id": "4e139caed65df90b567bd0111a52758fbf9b47eb",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDuQW/qWIi5Xp9s\nJd+aj+uK3bMm1280cE3Lko8sy2Q+UkjrRF4R44zb2g40/BR/ZYxOg4CoS5a5wQh+\ng7TtAmWqIYljs34Qr9YDTISGwXbpmdNUKdtLzW82L81YHjUyIeDu/wv/UMq0WoS2\nFs1MvEXf6HSnbgnRmDcCwtapbUfo82wAuMnu9EXVTD6aqHm54mftbL3QRZaGVsIm\nr2rohRP5C1zakkTrU+8XpRLhzMgHbzKbYYEOcG2t2rMTu/DPEsER4DSncPGYOmly\nTlgO3a2NG/wwPH8c/OZxGR0aTbXss/bh6kdMt2O6L5IEdOsVEzv+2HIBiE1rqQKP\ny20Qj0tRAgMBAAECggEAChj/wtRLYKRbEDrDcR35BRDX+D0kkVnSYT6qFuNcoXPM\nM3zpeft9d36kkCAwJ/VUQspZ3kAcYG1nBFIljY82wvTyiUVE4jUKlmeUfQ/XX+eJ\nJGm0+a+ob0jrvHikx2X2ThjE/9ZTLf1BX0SEgVRgJ4EHCybLr5xydelvLr1zARNV\nlNTzoJWIKDHY1MjXzgncfm+gT93qYb0wEiMCr0w+ofs4iwpCA01LR7wTMgcE7kvO\nabviTXcRpTWTkoP9XSMrufmF9bwwWihCjWW52lh1aeUtTcY0rvkZ1fpF8lKKuSoX\nCZjXClUqTJj7NgrKFGo80PjM9aAX+/E9NCMFyuLw4QKBgQD5EZpYBYOoSpLIyeH1\nnsUzC/PSka93uOSOlLvjuA7YmZw5kg1jdusRhL6V5XLBYmmjdTszzi3hPn2q8Z5Y\nUskTwXy8XymDNRLJMt1HQA7FxVa+Jf2zygwqoR/OY26dqyUYKvZHbMViFS1cVm6y\nTI37YpJw/2VL4Fl0+NdCUMKVoQKBgQD04szPytZXBlCAo4i9EIo1YKbkqqv2zJw0\n9RBUWRXTYy4uR2oDzHtKl+hyjMZrGcx1qrdYsBlujY/wjw0sFdFalKHxMX6IiWHe\nKHpYgGQvv1/6d/4P7oPsxlOajC0UytXQdp7HQD8vKw6ipGj6rC83URsrebUKYJxs\nn185w3h3sQKBgQCWVWaovGNUP/bLFPe7LmLuxccckOytQb9KxEGIWH81g7pFEX/d\nSljmUQ5MIZsbWJBUphzezxLoQrTNalteClHuB7qHZJUE6hL1uCrRp7uC6fLKgNna\nHBkt3eT5yRBqQHP6W2wdfmzBH/EqK81S91w3oK6tX6o/myHDtbMQBvj8IQKBgQCm\nX1QAtHDszOhyjShAMvWDEDgy0NVmJlrWC8zdUWznodFlNbWMASeeZRhSgtvnNa7Y\nHnTUN0f/+QNazwWG9we1/5cKU7MAtj2cfmmoqQnn+qANfepJDqXoflGchTG3l5qu\nN3jmK/sBY8Jcs1BzRfoKHftUjSp3c22yypAaoXe98QKBgBORMNr4tBs3IgS61MU7\nwcyPvh1UbTXksSUmL9rBGUvrrFOc4IdMG1t6yKOaGpzfScDSKq6/50bo17Oin122\nmtxzSMGrSIEHuT1OxD7VfGFqq68dacg4+MriKrXEw7YAkX+51K2K1L3a44JvR0sj\n+5V5+UnWZK25ouIYr79H8oQu\n-----END PRIVATE KEY-----\n",
+  "client_email": "webjudo@calendar-001-421015.iam.gserviceaccount.com",
+  "client_id": "114421135014783224741",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/webjudo%40calendar-001-421015.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
