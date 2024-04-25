@@ -4,48 +4,13 @@
     <h1>Calendario de Google</h1>    
     
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.10.1/main.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-    
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                events: safe 
-            });
-    
-            calendar.render();
-        });
-    </script>
-    <div>
-        <a href="{% url 'calendar_view' month=month-1 year=year %}">Anterior</a>
-        <a href="{% url 'calendar_view' month=month+1 year=year %}">Siguiente</a>
-    </div>
-    <table>
-        <thead>
-            <tr>
-                <th>Día</th>
-                <th>Eventos</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for day in days %}
-                <tr>
-                    <td>{{ day }}</td>
-                    <td>
-                        {% for event in events %}
-                            {% if event.start_time.day == day %}
-                                {{ event.summary }}
-                            {% endif %}
-                        {% endfor %}
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    
+    <iframe 
+        src="https://calendar.google.com/calendar/embed?height=600&wkst=2&ctz=Europe%2FMadrid&bgcolor=%23ffffff&hl=es&showPrint=0&showTitle=0&src=d2VlYnByb2plY3RqdWRvQGdtYWlsLmNvbQ&src=ZW4uc3BhaW4jaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23039BE5&color=%230B8043" 
+        style="border-width:0" 
+        width="800" height="600" 
+        frameborder="0" 
+        scrolling="no">
+    </iframe>    
         
 {% endblock %}
 
