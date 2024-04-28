@@ -1,3 +1,4 @@
+<!-- En calendar.html -->
 {% extends 'base.html' %}
 
 {% block content %}    
@@ -5,20 +6,38 @@
     <meta charset="UTF-8">
     <title>Judo Yamato-Calendar</title>
 </head> 
-    <body>        
-        <div class="contenido">
+<main class="container py-5">
+    <section class="card card-body d-flex justify-content-center align-items-center bg-secondary">
+        <div>
+            <h1 class="display-1 text-secondary text-center">CALENDAR</h1>
             <iframe 
                 src="https://calendar.google.com/calendar/embed?height=600&wkst=2&ctz=Europe%2FMadrid&bgcolor=%23ffffff&hl=es&showPrint=0&showTitle=0&src=d2VlYnByb2plY3RqdWRvQGdtYWlsLmNvbQ&src=ZW4uc3BhaW4jaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23039BE5&color=%230B8043" 
                 style="border-width:0" 
                 width="800" height="600" 
                 frameborder="0" 
                 scrolling="no">
-            </iframe>    
+            </iframe>
+
+            <div class="contenido">
+                <div>
+                    {% for comment in comments %}
+                        <p>{{ comment.user.username }}: {{ comment.text }}</p>
+                        {% if comment.user == request.user %}
+                            <form method="post" action="{% url 'delete_comment' comment.id %}">
+                                {% csrf_token %}
+                                <button type="submit">Eliminar</button>
+                            </form>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Enviar Comentario</button>
+                </form>
+            </div>
+
         </div>
-    </body>
-
-        
+    </section>
+</main>
 {% endblock %}
-
-
-

@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from tasks.views import home, signup, calendar_view, signout, signin, uploadpdf # Asegúrate de importar 'calendar_view'
+from tasks.views import home, signup, calendar_view, signout, signin, uploadpdf, delete_comment
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,6 +24,7 @@ urlpatterns = [
     path('home/', home, name='home'),
     path('signup/', signup, name='signup'),
     path('calendar/', calendar_view, name='calendar'), 
+    path('delete_comment/<int:comment_id>/', delete_comment, name='delete_comment'),
     path('logout/', signout, name='logout'),
     path('signin/', signin, name='signin'),
     path('uploadpdf/', uploadpdf , name='uploadpdf'),

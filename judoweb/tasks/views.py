@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
@@ -6,8 +6,10 @@ from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
 from .forms import PDFForm
+from .models import Comment
+from .forms import CommentForm
+
 
 
 def signup(request):
@@ -63,10 +65,23 @@ def signin(request):
 
 
 @login_required
-def calendar_view(request):    
-    return render(request, 'calendar.html')
+def calendar_view(request):
+    comments = Comment.objects.all()
+    form = CommentForm(request.POST or None)
+    if form.is_valid():
+        new_comment = form.save(commit=False)
+        new_comment.user = request.user
+        new_comment.save()
+        return redirect('calendar')
+    return render(request, 'calendar.html', {'comments': comments, 'form': form})
 
-
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    if request.method == 'POST':
+        if comment.user == request.user:
+            comment.delete()
+            return redirect('calendar')
+    return redirect('calendar')  
 
 
 @login_required

@@ -11,3 +11,12 @@ class PDFForm(forms.ModelForm):
         if not archivo.name.endswith('.pdf'):
             raise forms.ValidationError('Field must be PDF.')
         return archivo
+
+
+from django import forms
+from .models import Comment
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['text']
