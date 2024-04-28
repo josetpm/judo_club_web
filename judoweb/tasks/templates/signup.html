@@ -1,15 +1,80 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
-<h1>SIGNUP</h1>
 
-{{error}}
+<style>
+    .valid {
+        color: rgb(0, 170, 0);
+    }
+    .invalid {
+        color: rgb(170, 0, 0);
+    }
+</style>
 
-<form method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <button>Signup</button>
+<main class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-4 bg-dark">
+            <form method="POST" class="card card-body bg-dark">
+                <h1 class="text-center text-primary">SIGNUP</h1>
+                {{error}}
+                {% csrf_token %}
+                
+                <div class="mb-3">
+                    <label for="username">Username:</label>
+                    <input type="text" name="username" id="username" class="form-control" placeholder="Write your user name">
+                </div>
 
-</form>
+                <span id="length" class="invalid">Password must be at least 8 characters long</span>
+                <span id="uppercase" class="invalid">Password must contain at least one uppercase letter</span>
+                <span id="lowercase" class="invalid">Password must contain at least one lowercase letter</span>
+                <span id="number" class="invalid">Password must contain at least one number</span>
+                <span id="special" class="invalid">Password must contain at least one special character <br> . , ; ? & ! " $ % ( ) = + - </span>
+                <div class="mb-3">
+                    <label for="password1">Password:</label>
+                    <input type="password" name="password1" id="password1" onkeyup="validatePassword()" class="form-control" placeholder="Write your user password">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="password2">Password:</label>
+                    <input type="password" name="password2" id="password2" class="form-control" placeholder="Confirm your pasword">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    Signup
+                </button>
+            </form>
+        </div>
+    </div>
+</main>
+
+<script>
+    function updateRequirement(id, valid) {
+        const requirement = document.getElementById(id);
+        if (valid) {
+            requirement.classList.add("valid");
+            requirement.classList.remove("invalid");
+        } else {
+            requirement.classList.add("invalid");
+            requirement.classList.remove("valid");
+        }
+    }
+    
+    function validatePassword() {
+        const password = document.getElementById("password1").value;
+        const submitBtn = document.getElementById("submitBtn");
+        
+        updateRequirement("length", password.length >= 8);
+        
+        updateRequirement("uppercase", /[A-Z]/.test(password));
+        
+        updateRequirement("lowercase", /[a-z]/.test(password));
+        
+        updateRequirement("number", /[0-9]/.test(password));        
+        
+        updateRequirement("special", /[.,;?&!"$%()=+-]/.test(password));
+        
+        submitBtn.disabled = !document.querySelectorAll('.valid').length === 5;
+    }
+</script>
+
 {% endblock %}

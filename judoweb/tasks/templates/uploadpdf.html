@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<main class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-4"> 
+            <form method="POST" class="card card-body" enctype="multipart/form-data">
+                <h2>Upload PDF</h2>
+                {{ message }}                
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">
+                    Upload PDF
+                </button>
+            </form>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

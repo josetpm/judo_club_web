@@ -4,35 +4,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
-from datetime import datetime, timedelta
-import datetime as dt
-from google.oauth2.credentials import Credentials
-from google.auth.transport.requests import Request
-from googleapiclient.discovery import build
-from django.http import HttpResponse
-from google.oauth2 import service_account
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from google.oauth2.credentials import Credentials
-from google.auth.transport.requests import Request
-from googleapiclient.discovery import build
-from django.db import models
-import datetime
-import pytz
-
-
-SCOPES = ["https://www.googleapis.com/auth/calendar"]
-
-class Event(models.Model):
-    summary = models.CharField(max_length=255)
-    start_time = models.DateTimeField()
-    end_time = models.DateTimeField()
-
-    def __str__(self):
-        return self.summary
-
-def home(request):
-    return render(request, 'home.html')
+from django.shortcuts import render, redirect
+from .forms import PDFForm
 
 
 def signup(request):
@@ -59,6 +34,10 @@ def signup(request):
             'form': UserCreationForm,
             'error': 'Password don`t match'
         })
+
+@login_required
+def home(request):
+    return render(request, 'home.html')
 
 @login_required
 def signout(request):
@@ -90,10 +69,20 @@ def calendar_view(request):
 
 
 
-
-
-
-
-
+@login_required
+def uploadpdf(request):
+    if request.method == 'POST':
+        form = PDFForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return render(request, 'uploadpdf.html', {
+                'form': form,
+                'message': "PDF has been successfully uploaded."
+                })
+    else:
+        form = PDFForm()
+    return render(request, 'uploadpdf.html', {
+        'form': form,
+        })
 
 
