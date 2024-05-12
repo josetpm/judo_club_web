@@ -2,21 +2,23 @@
 
 {% block content %}
 
-<style>
-    .valid {
-        color: rgb(0, 170, 0);
-    }
-    .invalid {
-        color: rgb(170, 0, 0);
-    }
-</style>
+<head>
+    <style>
+        .valid {
+            color: rgb(0, 170, 0);
+        }
+        .invalid {
+            color: rgb(170, 0, 0);
+        }
+    </style>
+</head>
 
 <main class="container">
     <div class="row justify-content-center mt-5">
         <div class="col-md-4 bg-dark">
             <form method="POST" class="card card-body bg-dark">
                 <h1 class="text-center text-primary">SIGNUP</h1>
-                {{error}}
+                {{ error }}
                 {% csrf_token %}
                 
                 <div class="mb-3">
@@ -38,7 +40,7 @@
                     <input type="password" name="password2" id="password2" class="form-control" placeholder="Confirm your pasword">
                 </div>
                 
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" id="submitBtn" class="btn btn-primary">
                     Signup
                 </button>
             </form>
@@ -57,22 +59,21 @@
             requirement.classList.remove("valid");
         }
     }    
+    
     function validatePassword() {
         const password = document.getElementById("password1").value;
         const submitBtn = document.getElementById("submitBtn");
         
         updateRequirement("length", password.length >= 8);
-        
         updateRequirement("uppercase", /[A-Z]/.test(password));
-        
         updateRequirement("lowercase", /[a-z]/.test(password));
-        
         updateRequirement("number", /[0-9]/.test(password));        
-        
         updateRequirement("special", /[.,;?&!"$%()=+-]/.test(password));
         
-        submitBtn.disabled = !document.querySelectorAll('.valid').length === 5;
+        submitBtn.disabled = !(document.querySelectorAll('.valid').length === 5);
+
     }
 </script>
+
 
 {% endblock %}

@@ -16,8 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from tasks.views import home, signup, calendar_view, signout, signin, uploadpdf, delete_comment
-
+from tasks.views import home, signup, calendar_view, signout, signin, uploadpdf, delete_comment, delete_noticia
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
@@ -28,6 +29,7 @@ urlpatterns = [
     path('logout/', signout, name='logout'),
     path('signin/', signin, name='signin'),
     path('uploadpdf/', uploadpdf , name='uploadpdf'),
+    path('delete/<int:noticia_id>/', delete_noticia, name='delete_noticia'),
 
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

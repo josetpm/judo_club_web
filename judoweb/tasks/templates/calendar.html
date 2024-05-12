@@ -6,6 +6,23 @@
     <meta charset="UTF-8">
     <title>Judo Yamato-Calendar</title>
 </head> 
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+        var textarea = document.getElementById('comment-text');
+        var charCount = document.getElementById('char-count');
+        var submitBtn = document.getElementById('submit-btn');
+    
+        textarea.addEventListener('input', function () {
+            var remainingChars = 150 - textarea.value.length;
+            charCount.textContent = remainingChars;
+            if (remainingChars < 0) {
+                submitBtn.disabled = true;
+            } else {
+                submitBtn.disabled = false;
+            }
+        });
+    });
+</script>
 <main class="container py-5">
     <section class="card card-body d-flex justify-content-center align-items-center bg-secondary">
         <div>
@@ -22,7 +39,7 @@
                 <div>
                     {% for comment in comments %}
                         <p>{{ comment.user.username }}: {{ comment.text }}</p>
-                        {% if comment.user == request.user %}
+                        {% if comment.user == request.user or request.user.is_superuser %}
                             <form method="post" action="{% url 'delete_comment' comment.id %}">
                                 {% csrf_token %}
                                 <button type="submit">Eliminar</button>
@@ -30,11 +47,13 @@
                         {% endif %}
                     {% endfor %}
                 </div>
-                <form method="post">
+                <form method="post" id="comment-form">
                     {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit">Enviar Comentario</button>
+                    <textarea name="text" id="comment-text" rows="4" cols="50" maxlength="250"></textarea><br>
+                    <span id="char-count">150</span> caracteres restantes<br>
+                    <button type="submit" id="submit-btn">Enviar Comentario</button>
                 </form>
+                
             </div>
 
         </div>

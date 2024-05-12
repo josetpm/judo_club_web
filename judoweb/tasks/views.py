@@ -4,12 +4,14 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .forms import PDFForm
-from .models import Comment
+from .models import Comment, Noticia
 from .forms import CommentForm
-
+from django.contrib.auth.decorators import permission_required
+from .forms import NoticiaForm
+from django.contrib import messages
+from django.contrib.auth.decorators import user_passes_test
 
 
 def signup(request):
@@ -39,7 +41,24 @@ def signup(request):
 
 @login_required
 def home(request):
-    return render(request, 'home.html')
+    if request.method == 'POST':
+        form = NoticiaForm(request.POST, request.FILES)
+        if form.is_valid():
+            noticia = form.save(commit=False)
+            noticia.save()
+            return redirect('home')
+    else:
+        form = NoticiaForm()
+    noticias = Noticia.objects.all()
+    return render(request, 'home.html', {'form': form, 'noticias': noticias})
+
+@user_passes_test(lambda u: u.is_superuser)
+def delete_noticia(request, noticia_id):
+    noticia = get_object_or_404(Noticia, pk=noticia_id)
+    if request.method == 'POST':
+        noticia.delete()
+        return redirect('home')  
+    return render(request, 'home.html', {'noticias': Noticia.objects.all()})
 
 @login_required
 def signout(request):
@@ -82,6 +101,18 @@ def delete_comment(request, comment_id):
             comment.delete()
             return redirect('calendar')
     return redirect('calendar')  
+
+@permission_required('judoweb.message_permissions')
+def delete_comment(request, comment_id):
+    comment = get_object_or_404(Comment, id=comment_id)
+    
+    if request.user.has_perm('your_app.delete_any_comment'):
+        comment.delete()
+    elif comment.user == request.user:
+        comment.delete()
+    else:
+        redirect('calendar')
+    return redirect('calendar')
 
 
 @login_required
