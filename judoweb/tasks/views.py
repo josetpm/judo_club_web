@@ -60,6 +60,23 @@ def delete_noticia(request, noticia_id):
         return redirect('home')  
     return render(request, 'home.html', {'noticias': Noticia.objects.all()})
 
+
+@user_passes_test(lambda u: u.is_superuser)
+def edit_noticia(request):
+    noticia = get_object_or_404(Noticia, pk=request.POST['id'])
+
+    if request.method == 'POST':
+        form = NoticiaForm(request.POST, request.FILES, instance=noticia)
+        if form.is_valid():
+            form.save()
+            return redirect('home')    
+    else:
+        form = NoticiaForm(instance=noticia)
+    
+    return render(request, 'home.html', {'form': form})
+
+
+
 @login_required
 def signout(request):
     logout(request)

@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from tasks.views import home, signup, calendar_view, signout, signin, uploadpdf, delete_comment, delete_noticia
+from tasks.views import *
 from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
@@ -30,6 +30,7 @@ urlpatterns = [
     path('signin/', signin, name='signin'),
     path('uploadpdf/', uploadpdf , name='uploadpdf'),
     path('delete/<int:noticia_id>/', delete_noticia, name='delete_noticia'),
+    path('edit/', edit_noticia, name='edit_noticia'),
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
