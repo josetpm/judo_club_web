@@ -8,7 +8,8 @@
             <div class="card mb-3">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="{{ noticia.imagen.url }}" class="img-fluid rounded-start" alt="...">
+                        
+                        <a href="/uploadpdf" class="nav-link"><img src="{{ noticia.imagen.url }}" style="width: 70%;"  class="img-fluid rounded-start" alt="..."></a>
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
@@ -16,19 +17,20 @@
                             <p class="card-text">{{ noticia.descripcion }}</p>
                             <p class="card-text"><small class="text-muted">Publicado el {{ noticia.fecha_publicacion }}</small></p>
                             {% if user.is_superuser %}
-                                <form method="post" action="{% url 'delete_noticia' noticia.id %}">
+                                <form class="py-2" method="post" action="{% url 'delete_noticia' noticia.id %}">
                                     {% csrf_token %}
                                     <button type="submit" class="btn btn-danger">Eliminar</button>
                                 </form>
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="{{noticia.pk}}">Edit</button>      
-                                {% endif %}
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
         {% endfor %}
-
-        {% if user.is_superuser %}
+    </section>
+    {% if user.is_superuser %}
+    <section class="card card-body">        
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="mb-3">
@@ -41,7 +43,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="imagen" class="form-label">Imagen:</label>
-                    <input type="file" class="form-control" id="imagen" name="imagen">
+                    <input type="file" class="form-control"  id="imagen" name="imagen">
                 </div>
                 <button type="submit" class="btn btn-primary">Agregar Noticia</button>
             </form>
@@ -91,7 +93,24 @@
 
 <!--preparar parametro id notica para poder editar-->
 <script>
-    
+/*
+ * WARNING: The code that follows may make you cry:
+ *           A Safety Pig has been provided below for your benefit
+ *                              _
+ *      _._ _..._ .-',     _.._(`))
+ *     '-. `     '  /-._.-'    ',/
+ *       )         \            '.
+ *      / _    _    |             \
+ *     |  a    a    /              |
+ *      \   .-.                     ;
+ *       '-('' ).-'       ,'       ;
+ *          '-;           |      .'
+ *            \           \    /
+ *            | 7  .__  _.-\   \
+ *            | |  |  ``/  /`  /
+ *           /,_|  |   /,_/   /
+ *              /,_/      '`-'
+ */
     $(document).ready(function() {  
         
         
