@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-
 {% block content %}
+
 <main class="container py-5">
     <section class="card card-body">
         <h1 class="display-1 text-center">HOME</h1>
@@ -89,17 +89,22 @@
 {% endblock %}
 {% block script %}
 
+<!--preparar parametro id notica para poder editar-->
 <script>
-    $(document).ready(function() {        
+    
+    $(document).ready(function() {  
+        
+        
         $('#exampleModal').on('show.bs.modal', function (event) {
 
-            var button = $(event.relatedTarget) 
+                                                                                                                                                                
+
+                        var button = $(event.relatedTarget) 
             var recipient = button.data('id') 
             var modal = $(this)
-            modal.find('#id').val(recipient)}
-    )
-    }
-    )
+            modal.find('#id').val(recipient)
+        })
+    })
 </script>
 
 {% endblock %}
