@@ -19,6 +19,8 @@ from django.urls import path
 from tasks.views import *
 from django.conf import settings
 from django.conf.urls.static import static
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
@@ -31,6 +33,9 @@ urlpatterns = [
     path('uploadpdf/', uploadpdf , name='uploadpdf'),
     path('delete/<int:noticia_id>/', delete_noticia, name='delete_noticia'),
     path('edit/', edit_noticia, name='edit_noticia'),
+    path('pdf-list/', pdf_list, name='pdf_list'),
+
+
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

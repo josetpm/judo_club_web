@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="p-3">
+        <h2>List of PDFs</h2>
+        <ul>
+        {% for pdf in page_obj %}
+            <div class="p-2 bg-dark text-white" >
+                <span>Uploaded by: {{ pdf.user.username }}</span>
+                <a href="{{ pdf.archivo.url }}">{{ pdf.archivo.name }}</a>
+            </div>
+        {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

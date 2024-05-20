@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
@@ -12,6 +11,9 @@ from django.contrib.auth.decorators import permission_required
 from .forms import NoticiaForm
 from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
+from .models import *
+from django.core.paginator import Paginator
+
 
 
 def signup(request):
@@ -119,6 +121,7 @@ def delete_comment(request, comment_id):
             return redirect('calendar')
     return redirect('calendar')  
 
+@permission_required('judoweb.message_permissions')
 def delete_comment(request, comment_id):
     comment = get_object_or_404(Comment, id=comment_id)
     
@@ -136,15 +139,24 @@ def uploadpdf(request):
     if request.method == 'POST':
         form = PDFForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            pdf = form.save(commit=False)
+            pdf.user = request.user  # Asociar el PDF con el usuario actual
+            pdf.save()
             return render(request, 'uploadpdf.html', {
-                'form': form,
+                'form': PDFForm(),
                 'message': "PDF has been successfully uploaded."
-                })
+            })
     else:
         form = PDFForm()
     return render(request, 'uploadpdf.html', {
         'form': form,
-        })
+    })
+@user_passes_test(lambda u: u.is_superuser)
+def pdf_list(request):
+    pdfs = PDF.objects.all()
+    paginator = Paginator(pdfs, 10) 
+    page_number = request.GET.get('page') 
+    page_obj = paginator.get_page(page_number)  
+    return render(request, 'pdf_list.html', {'page_obj': page_obj})
 
 
