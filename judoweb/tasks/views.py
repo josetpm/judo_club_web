@@ -135,12 +135,14 @@ def delete_comment(request, comment_id):
 
 
 @login_required
+@login_required
 def uploadpdf(request):    
     if request.method == 'POST':
         form = PDFForm(request.POST, request.FILES)
         if form.is_valid():
             pdf = form.save(commit=False)
             pdf.user = request.user 
+            pdf.estado = 'pendiente'
             pdf.save()
             return render(request, 'uploadpdf.html', {
                 'form': PDFForm(),
@@ -153,11 +155,30 @@ def uploadpdf(request):
     })
 
 @user_passes_test(lambda u: u.is_superuser)
+def cambiar_estado_pdf(request):
+    if request.method == 'POST':
+        pdf_id = request.POST.get('pdf_id')
+        pdf = PDF.objects.get(id=pdf_id)
+        
+        estado = request.POST.get('estado')
+        pdf.estado = estado
+        pdf.save()
+        print('va por aqui')
+        return redirect ('pdf_list')
+
+    else:
+        return redirect ('pdf_list')
+
+@user_passes_test(lambda u: u.is_superuser)
 def pdf_list(request):
     pdfs = PDF.objects.all()
     paginator = Paginator(pdfs, 10) 
     page_number = request.GET.get('page') 
     page_obj = paginator.get_page(page_number)  
     return render(request, 'pdf_list.html', {'page_obj': page_obj})
+
+
+
+
 
 

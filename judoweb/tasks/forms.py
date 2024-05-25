@@ -1,10 +1,10 @@
 from django import forms
-from .models import PDF, Noticia
+from .models import *
 
 class PDFForm(forms.ModelForm):
     class Meta:
         model = PDF
-        fields = ['archivo']
+        fields = ['archivo', 'estado']
 
     def clean_archivo(self):
         archivo = self.cleaned_data['archivo']
@@ -25,3 +25,5 @@ class NoticiaForm(forms.ModelForm):
     class Meta:
         model = Noticia
         fields = ['titulo', 'descripcion', 'imagen']
+
+
