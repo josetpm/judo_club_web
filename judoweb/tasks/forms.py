@@ -1,9 +1,13 @@
 from django import forms
 from .models import *
+from django import forms
+from .models import Comment
+
 
 class PDFForm(forms.ModelForm):
     class Meta:
         model = PDF
+        exclude = ['estado'] 
         fields = ['archivo', 'estado']
 
     def clean_archivo(self):
@@ -12,9 +16,6 @@ class PDFForm(forms.ModelForm):
             raise forms.ValidationError('Field must be PDF.')
         return archivo
 
-
-from django import forms
-from .models import Comment
 
 class CommentForm(forms.ModelForm):
     class Meta:
