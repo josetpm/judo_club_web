@@ -7,12 +7,19 @@
             <div class="p-2 bg-dark text-white" >
                 <span>Uploaded by: {{ pdf.user.username }}</span>
                 <a href="{{ pdf.archivo.url }}">{{ pdf.archivo.name }}</a>
+                
                     <div class="d-inline">
+                    {% if user.is_superuser %}
                         <select name="estado" class="actualizarPDF" data-id="{{ pdf.id }}">
                             <option value="pagado" {% if pdf.estado == 'pagado' %} selected {% endif %}>Pagado</option>
                             <option value="pendiente" {% if pdf.estado == 'pendiente' %} selected {% endif %}>Pendiente</option>
                             <option value="rechazado" {% if pdf.estado == 'rechazado' %} selected {% endif %}>Rechazado</option>
                         </select>
+                    {% else %}
+                    <span>
+                        {{pdf.estado}}
+                    </span>
+                    {% endif %}
                     </div>
             </div>
         {% endfor %}

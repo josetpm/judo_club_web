@@ -186,9 +186,12 @@ def cambiar_estado_pdf(request):
         return HttpResponse("notnise")
 
 
-@user_passes_test(lambda u: u.is_superuser)
+@login_required
 def pdf_list(request):
-    pdfs = PDF.objects.all()
+    if request.user.is_superuser:
+        pdfs = PDF.objects.all()
+    else:
+        pdfs = PDF.objects.filter(user=request.user)
     paginator = Paginator(pdfs, 10)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
