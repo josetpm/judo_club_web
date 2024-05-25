@@ -11,8 +11,9 @@
                 {% csrf_token %}
                 {{ form.as_p }}
                 <input type="hidden" name="user" value="{{ user.id }}">
+                <input>
                 <button type="submit" class="btn btn-primary">
-                    Upload PDF
+                    Upload Evento
                 </button>
             </form>
         </div>

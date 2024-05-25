@@ -135,12 +135,12 @@ def delete_comment(request, comment_id):
 
 
 @login_required
-def uploadpdf(request):
+def uploadpdf(request):    
     if request.method == 'POST':
         form = PDFForm(request.POST, request.FILES)
         if form.is_valid():
             pdf = form.save(commit=False)
-            pdf.user = request.user  # Asociar el PDF con el usuario actual
+            pdf.user = request.user 
             pdf.save()
             return render(request, 'uploadpdf.html', {
                 'form': PDFForm(),
@@ -151,6 +151,7 @@ def uploadpdf(request):
     return render(request, 'uploadpdf.html', {
         'form': form,
     })
+
 @user_passes_test(lambda u: u.is_superuser)
 def pdf_list(request):
     pdfs = PDF.objects.all()
