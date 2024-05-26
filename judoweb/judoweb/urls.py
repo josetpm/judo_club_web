@@ -14,6 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path
 from tasks.views import *
@@ -22,20 +23,19 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', home, name='home'),
-    path('home/', home, name='home'),
-    path('signup/', signup, name='signup'),
-    path('calendar/', calendar_view, name='calendar'), 
-    path('delete_comment/<int:comment_id>/', delete_comment, name='delete_comment'),
-    path('logout/', signout, name='logout'),
-    path('signin/', signin, name='signin'),
-    path('uploadpdf/', uploadpdf , name='uploadpdf'),
-    path('delete/<int:noticia_id>/', delete_noticia, name='delete_noticia'),
-    path('edit/', edit_noticia, name='edit_noticia'),
-    path('pdf-list/', pdf_list, name='pdf_list'),
-    path('cambiar_estado_pdf/', cambiar_estado_pdf, name='cambiar_estado_pdf'),
-
-
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
+    path("admin/", admin.site.urls),
+    path("", home, name="home"),
+    path("home/", home, name="home"),
+    path("signup/", signup, name="signup"),
+    path("calendar/", calendar_view, name="calendar"),
+    path("delete_comment/<int:comment_id>/", delete_comment, name="delete_comment"),
+    path("logout/", signout, name="logout"),
+    path("signin/", signin, name="signin"),
+    path("uploadpdf/", uploadpdf, name="uploadpdf"),
+    path("delete/<int:noticia_id>/", delete_noticia, name="delete_noticia"),
+    path("edit/", edit_noticia, name="edit_noticia"),
+    path("pdf-list/", pdf_list, name="pdf_list"),
+    path("cambiar_estado_pdf/", cambiar_estado_pdf, name="cambiar_estado_pdf"),
+    path("manage_eventos/", manage_eventos, name="manage_eventos"),
+    path("delete_evento/<int:evento_id>/", delete_evento, name="delete_evento"),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

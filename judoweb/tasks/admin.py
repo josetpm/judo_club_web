@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import *
 
-# Register your models here.
+arrayModels = [PDF, Noticia, Comment, Evento]
+
+admin.site.register(arrayModels)

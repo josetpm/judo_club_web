@@ -7,7 +7,7 @@ from .forms import PDFForm
 from .models import Comment, Noticia
 from .forms import CommentForm
 from django.contrib.auth.decorators import permission_required
-from .forms import NoticiaForm
+from .forms import *
 from django.contrib.auth.decorators import user_passes_test
 from .models import *
 from django.core.paginator import Paginator
@@ -196,3 +196,25 @@ def pdf_list(request):
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     return render(request, "pdf_list.html", {"page_obj": page_obj})
+
+
+@user_passes_test(lambda u: u.is_superuser)
+@login_required
+def manage_eventos(request):
+    if request.method == "POST":
+        form = EventoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("upload_pdf")
+    else:
+        form = EventoForm()
+    eventos = Evento.objects.all()
+    return render(request, "upload.html", {"form": form, "eventos": eventos})
+
+
+@user_passes_test(lambda u: u.is_superuser)
+@login_required
+def delete_evento(request, evento_id):
+    evento = Evento.objects.get(id=evento_id)
+    evento.delete()
+    return redirect("upload_pdf")
