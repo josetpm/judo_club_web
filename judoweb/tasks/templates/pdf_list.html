@@ -2,14 +2,14 @@
 {% block content %}
 <div class="p-3">
     <h2>List of PDFs</h2>
-    {% if user.is_superuser %}
+    
     <select class="filtrarEvento" id="filtroEvento" name='evento_id'>
-        <option value="">----</option>
+        <option value="">All</option>
         {% for evento in eventos %}
             <option value={{evento.id}}>{{evento.nombre}}</option>
         {% endfor %}
+        
     </select>
-    {% endif %}
     <ul>
     {% for pdf in page_obj %}
         <div class="p-2 bg-dark text-white">
@@ -39,8 +39,18 @@
 
 <script>
 $(document).ready(function(){
-    $('#filtroEvento').change(function(){
-        window.location.href = "?evento_id=" + $(this).val();
+    var urlParams = new URLSearchParams(window.location.search);
+    var eventoId = urlParams.get('evento_id');
+
+    $('#filtroEvento').val(eventoId);
+
+    $('#filtroEvento').change(function(){ 
+        if ($(this).val() == ""){
+            window.location.href = window.location.pathname;
+        }
+        else {
+            window.location.href = "?evento_id=" + $(this).val();
+        }
     });
 
     $('select.actualizarPDF').on('change', function(){
@@ -54,7 +64,7 @@ $(document).ready(function(){
                 "estado": estadoNuevo
             }
         })
-       .done(function(response){
+        .done(function(response){
             console.log(response); 
         });
     });
