@@ -36,6 +36,4 @@ urlpatterns = [
     path("edit/", edit_noticia, name="edit_noticia"),
     path("pdf-list/", pdf_list, name="pdf_list"),
     path("cambiar_estado_pdf/", cambiar_estado_pdf, name="cambiar_estado_pdf"),
-    path("manage_eventos/", manage_eventos, name="manage_eventos"),
-    path("delete_evento/<int:evento_id>/", delete_evento, name="delete_evento"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

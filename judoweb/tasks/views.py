@@ -11,7 +11,7 @@ from .forms import *
 from django.contrib.auth.decorators import user_passes_test
 from .models import *
 from django.core.paginator import Paginator
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -192,29 +192,13 @@ def pdf_list(request):
         pdfs = PDF.objects.all()
     else:
         pdfs = PDF.objects.filter(user=request.user)
+
+    evento_id = request.GET.get("evento_id")
+    if evento_id:
+        pdfs = pdfs.filter(evento__id=evento_id)
+
     paginator = Paginator(pdfs, 10)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    return render(request, "pdf_list.html", {"page_obj": page_obj})
-
-
-@user_passes_test(lambda u: u.is_superuser)
-@login_required
-def manage_eventos(request):
-    if request.method == "POST":
-        form = EventoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("upload_pdf")
-    else:
-        form = EventoForm()
     eventos = Evento.objects.all()
-    return render(request, "upload.html", {"form": form, "eventos": eventos})
-
-
-@user_passes_test(lambda u: u.is_superuser)
-@login_required
-def delete_evento(request, evento_id):
-    evento = Evento.objects.get(id=evento_id)
-    evento.delete()
-    return redirect("upload_pdf")
+    return render(request, "pdf_list.html", {"page_obj": page_obj, "eventos": eventos})
