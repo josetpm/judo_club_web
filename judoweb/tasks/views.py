@@ -58,6 +58,7 @@ def home(request):
 
 
 @user_passes_test(lambda u: u.is_superuser)
+@login_required
 def delete_noticia(request, noticia_id):
     noticia = get_object_or_404(Noticia, pk=noticia_id)
     if request.method == "POST":
@@ -67,6 +68,7 @@ def delete_noticia(request, noticia_id):
 
 
 @user_passes_test(lambda u: u.is_superuser)
+@login_required
 def edit_noticia(request):
     noticia = get_object_or_404(Noticia, pk=request.POST["id"])
 
