@@ -7,10 +7,10 @@
 
     </head>
 
-    <body class="bg-secondary">
+    <body class="bg-dark">
 
         
-        <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <nav class="navbar navbar-expand-lg bg-success navbar-dark">
             <div class="container">
                 <a class="navbar-brand" href="/home">Judo Yamato 柔道 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,8 +63,24 @@
                 const {scrollTop, scrollHeight, clientHeight} = document.documentElement;
                 if (scrollTop + clientHeight >= scrollHeight) {
                     document.getElementById('footer').style.display = 'block';
-                }});                
-            
+                }});      
+                
+                
+                function openMailto() {
+                        const email = "example@example.com";
+                        const subject = "";
+                        const body = "";
+                        const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;            
+                        window.open(gmailUrl, '_blank');
+                }
+                
+                function openWhatsApp() {
+                    const phoneNumber = "1234567890"; 
+                    const message = "Hola";
+                    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                    window.open(whatsappUrl, '_blank');
+                }
+
             </script>
             {% block script %}
             {% endblock %}
@@ -72,13 +88,19 @@
 
     </body>
 
-    <footer id="footer">
+    <footer id="footer" class="bg-light">
         <div class="container">
-            <div class="row">
+            <div class="row p-2">
                 <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
                     <h5 class="text-uppercase">Información de contacto</h5>
-                    <p>Correo electrónico: info@judoyamato.com</p>
-                    <p>Teléfono: 123456789</p>
+                    <div class = "p-2">
+                        <a>Correo electrónico: </a>
+                        <span class="btn btn-outline-danger" onclick="openMailto()">example@example.com</span>
+                    </div>
+                    <div>
+                        <a>Teléfono:</a>
+                        <span class="btn btn-outline-success" onclick="openWhatsApp()">123456789</spam>
+                    </div>
                 </div>
                 <div class="col-lg-6 col-md-12 mb-4 mb-md-0 text-end" >
                     <h5 class="text-uppercase">Síguenos en redes sociales</h5>
@@ -95,7 +117,7 @@
                 </div>
             </div>
         </div>
-        <div class="text-center p-3 bg-light" >
+        <div class="text-center p-3 bg-secondary" >
             © 2024 Judo Yamato
         </div>
     </footer>

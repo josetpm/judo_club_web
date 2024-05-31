@@ -2,13 +2,13 @@
 {% block content %}
 
 <main class="container py-5">
-    <section class="card card-body">
-        <h1 class="display-1 text-center">HOME</h1>
+    <section class="card card-body bg-secondary">
+        <h1 class="display-1 text-center text-light ">HOME</h1>
         {% for noticia in noticias %}
             <div class="card mb-3">
                 <div class="row g-0">
                     <div class="col-md-2">
-                        <a href="/uploadpdf" class="nav-link"><img src="{{ noticia.imagen.url }}" style="width:70% "  class="img-fluid rounded-start" alt="..."></a>
+                        <a href="/uploadpdf" class="nav-link"><img src="{{ noticia.imagen.url }}" style="width:100% "  class="img-fluid rounded-start" alt="..."></a>
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
