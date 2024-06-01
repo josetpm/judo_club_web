@@ -67,8 +67,6 @@ def delete_noticia(request, noticia_id):
     return render(request, "home.html", {"noticias": Noticia.objects.all()})
 
 
-@user_passes_test(lambda u: u.is_superuser)
-@login_required
 def edit_noticia(request):
     noticia = get_object_or_404(Noticia, pk=request.POST["id"])
 
@@ -80,7 +78,7 @@ def edit_noticia(request):
     else:
         form = NoticiaForm(instance=noticia)
 
-    return render(request, "home.html", {"form": form})
+    return redirect(request, "home.html", {"form": form})
 
 
 @login_required
