@@ -78,7 +78,7 @@ def edit_noticia(request):
     else:
         form = NoticiaForm(instance=noticia)
 
-    return redirect(request, "home.html", {"form": form})
+    return render(request, "home.html", {"form": form})
 
 
 @login_required

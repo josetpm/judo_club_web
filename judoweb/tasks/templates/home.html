@@ -21,12 +21,11 @@
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-danger">Eliminar</button>
                             </form>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="{{ noticia.pk }}">Edit</button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal" data-id="{{ noticia.pk }}">Editar</button>
                         {% endif %}
                     </div>
                 </div>
 
-@@ -28,88 +29,67 @@
         </div>
     {% endfor %}
 </section>
@@ -38,7 +37,7 @@
     </form>
     
 
-    <div class="modal fade" id="agregarNoticiaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="agregarNoticiaModal" >
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <form method="post" enctype="multipart/form-data">
@@ -83,40 +82,37 @@
 {% endif %}
 </main>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog" role="document">
-    <div class="modal-content">
-        <form method="post" enctype="multipart/form-data" action="{% url 'edit_noticia' %}">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="post" enctype="multipart/form-data" action="{% url 'edit_noticia' %}">
                 {% csrf_token %}
-                <div class="mb-3">
-                    <label for="titulo" class="form-label">Título:</label>
-                    <input type="text" class="form-control" id="titulo" name="titulo">
-                </div> 
-                <div class="mb-3">
-                    <label for="id" class="form-label"></label>
-                    <input type="hidden" name="id" value="{{ noticia.pk }}">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Editar Noticia</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="mb-3">
-                    <label for="descripcion" class="form-label">Descripción:</label>
-                    <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
+                <div class="modal-body">
+                    <input type="hidden" class="form-control" id="id" name="id">
+                    <div class="mb-3">
+                        <label for="titulo" class="form-label">Título:</label>
+                        <input type="text" class="form-control" id="titulo" name="titulo">
+                    </div>
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripción:</label>
+                        <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="imagen" class="form-label">Imagen:</label>
+                        <input type="file" class="form-control" id="imagen" name="imagen">
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="imagen" class="form-label">Imagen:</label>
-                    <input type="file" class="form-control" id="imagen" name="imagen">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Editar Noticia</button>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 </div>
 
 
@@ -143,19 +139,29 @@
  *           /,_|  |   /,_/   /
  *              /,_/      '`-'
  */
-    $(document).ready(function() {  
-        
-        
-        $('#exampleModal').on('show.bs.modal', function (event) {
+$(document).ready(function() {  
+    $('#editModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Botón que activa el modal
+        var id = button.data('id'); // Extrae la información del atributo `data-id`
 
-                                                                                                                                                                
+        // Verifica que se ha encontrado un id
+        if (id === undefined || id === null) {
+            console.error('No se encontró un id en el atributo `data-id` del botón.');
+            return;
+        }
 
-                        var button = $(event.relatedTarget) 
-            var recipient = button.data('id') 
-            var modal = $(this)
-            modal.find('#id').val(recipient)
-        })
-    })
+        var modal = $(this);
+        modal.find('#id').val(id); // Asigna el id al campo oculto del formulario
+
+        // Completa otros campos según sea necesario
+        var noticiaTitle = button.closest('.card').find('.card-title').text();
+        var noticiaDescription = button.closest('.card').find('.card-text').first().text();
+
+        modal.find('#titulo').val(noticiaTitle);
+        modal.find('#descripcion').val(noticiaDescription);
+    });
+});
+
 </script>
 
 {% endblock %}
