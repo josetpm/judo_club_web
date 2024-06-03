@@ -4,19 +4,36 @@
 
 <main class="container">
     <div class="row justify-content-center mt-5">
-        <div class="col-md-4"> 
-            <form method="POST" class="card card-body" enctype="multipart/form-data">
+        <div class="col-md-4 "> 
+            <form method="POST" class="card card-body border-success border-5 card-body text-light bg-dark" enctype="multipart/form-data">
                 <h2>Upload PDF</h2>
                 {{ message }}                
                 {% csrf_token %}
                 {{ form.as_p }}
                 <input type="hidden" name="user" value="{{ user.id }}">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" disabled id="submit-button" class="btn btn-success" disabled>
                     Upload PDF
                 </button>
             </form>
         </div>
     </div>
 </main>
+
+<script>
+    const fileInput = document.querySelector('#id_archivo');
+    const eventSelect = document.querySelector('#id_evento');
+    const submitButton = document.querySelector('#submit-button');
+
+    function toggleSubmitButton() {
+        if (fileInput.files.length > 0 && eventSelect.value) {
+            submitButton.disabled = false;
+        } else {
+            submitButton.disabled = true;
+        }
+    }
+
+    fileInput.addEventListener('change', toggleSubmitButton);
+    eventSelect.addEventListener('change', toggleSubmitButton);
+</script>
 
 {% endblock %}

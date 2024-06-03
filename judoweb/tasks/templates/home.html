@@ -1,27 +1,27 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<main class="container py-5">
-    <section class="card card-body">
+<main class="container py-3 ">
+    <section class="card card-body bg-dark text-light ">
         <h1 class="display-1 text-center">HOME</h1>
         {% for noticia in noticias %}
-        <div class="card mb-3">
-            <div class="row g-0">
-                <div class="col-md-2">
-                    <a href="/uploadpdf" class="nav-link"><img src="{{ noticia.imagen.url }}" style="width:100% "  class="img-fluid rounded-start" alt="..."></a>
+        <div >
+            <div class="row g-0 m-3 border border-success border-5 card-body text-dark bg-secondary rounded">
+                <div class="col-md-2 ">
+                    <a href="/uploadpdf" class="nav-link"><img src="{{ noticia.imagen.url }}" style="width:100% "  class="img-fluid rounded" ></a>
 
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-8 ">
                     <div class="card-body">
                         <h5 class="card-title">{{ noticia.titulo }}</h5>
                         <p class="card-text">{{ noticia.descripcion }}</p>
-                        <p class="card-text"><small class="text-muted">Publicado el {{ noticia.fecha_publicacion }}</small></p>
+                        <small class="card-text">Publicado el {{ noticia.fecha_publicacion }}</small>
                         {% if user.is_superuser %}
                             <form class="py-2" method="post" action="{% url 'delete_noticia' noticia.id %}">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-danger">Eliminar</button>
                             </form>
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal" data-id="{{ noticia.pk }}">Editar</button>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editModal" data-id="{{ noticia.pk }}">Editar</button>
                         {% endif %}
                     </div>
                 </div>
@@ -31,9 +31,9 @@
 </section>
 
 {% if user.is_superuser %}
-<section class="card card-body">
+<section class="card card-body bg-dark">
     <form> 
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarNoticiaModal">Agregar Noticia</button>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#agregarNoticiaModal">Agregar Noticia</button>
     </form>
     
 
@@ -68,12 +68,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
 
 
 

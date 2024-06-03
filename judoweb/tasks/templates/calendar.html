@@ -8,17 +8,22 @@
 
 <main class="container py-5">
     <section class="card card-body d-flex justify-content-center align-items-center bg-dark">
-        <div>
-            <h1 class="display-1 text-secondary text-center">CALENDAR</h1>
+        <div >
+            <h1 class="display-1 text-light text-center">CALENDAR</h1>
             <div class = "card card-body d-flex justify-content-center align-items-center bg-dark">
-                <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=2&ctz=Europe%2FMadrid&bgcolor=%239E69AF&hl=es&showTitle=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0&src=d2VlYnByb2plY3RqdWRvQGdtYWlsLmNvbQ&color=%23039BE5" 
+                <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=2&ctz=Europe%2FMadrid&bgcolor=%23198754&hl=es&showTitle=0&showPrint=0&showTabs=0&showCalendars=0&showTz=0&src=d2VlYnByb2plY3RqdWRvQGdtYWlsLmNvbQ&color=%23039BE5" 
                     style="border-width:0" 
                     width=150%  height="500px"
                     frameborder="0" 
                     scrolling="no">
                 </iframe>
             </div>
-            <section class="container py-5 bg-secondary">
+            
+            <section class="container py-2 bg-secondary">
+                <div class="mt-3 mb-3">
+                    <h5>Comentarios</h5>
+                </div>
+                
                 <div class="contenido">
                     
                     {% for comment in comments %}
@@ -29,9 +34,7 @@
                             
                             {% if comment.user == request.user or request.user.is_superuser %}
                             
-                                <button class="text-right bg-danger" type="submit" >X</button>
-                                
-                                
+                                <a title= "Eliminar" class="btn text-right bg-danger btn-sm" type="submit" > X </a>
                             
                             {% endif %}
                             {{ comment.user.username }}: {{ comment.text }}
@@ -44,7 +47,7 @@
                         {% csrf_token %}
                         <textarea name="text" id="comment-text" rows="4" cols="50" maxlength="250"></textarea><br>
                         <span id="char-count">150</span> caracteres restantes<br>
-                        <button type="submit" id="submit-btn">Enviar Comentario</button>
+                        <a type="submit" class="btn bg-success text-light m-2" id="submit-btn">Enviar Comentario</a>
                     </form>
                     
                 </div>

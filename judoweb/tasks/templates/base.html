@@ -1,126 +1,107 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
     <head>
         <meta charset="UTF-8">
         <title>Judo Yamato</title>
+        <link rel = "shortcut icon" type="image/x-icon" href= {% static 'judojapones.ico' %}>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
     </head>
 
-    <body class="bg-dark">
-
-        
+    <body class="bg-dark d-flex flex-column min-vh-100"> 
         <nav class="navbar navbar-expand-lg bg-success navbar-dark">
             <div class="container">
-                <a class="navbar-brand" href="/home">Judo Yamato 柔道 </a>
+                <a class="navbar-brand" href="/home">Judo Yamato 柔道</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <li  class="nav-item">
+                        <li class="nav-item">
                             <a href="/home" class="nav-link">Home</a>                
                         </li> 
-                        <li  class="nav-item">
+                        <li class="nav-item">
                             <a href="/calendar" class="nav-link">Calendar</a>
                         </li>
                         {% if user.is_authenticated %}
-                        <li  class="nav-item">
+                        <li class="nav-item">
                             <a href="/logout" class="nav-link">Logout</a>
                         </li>
-                        <li  class="nav-item">
+                        <li class="nav-item">
                             <a href="/uploadpdf" class="nav-link">Uploadpdf</a>
                         </li>     
                         {% else %}
-                        <li  class="nav-item">
+                        <li class="nav-item">
                             <a href="/signup" class="nav-link">Signup</a>
                         </li>
-                        <li  class="nav-item">
+                        <li class="nav-item">
                             <a href="/signin" class="nav-link">Signin</a>
                         </li>                        
                         {% endif %}
-
-                        
-                        <li  class="nav-item">
+                        <li class="nav-item">
                             <a href="/pdf-list" class="nav-link">PDF-List</a>
                         </li>   
-
                     </ul>
                 </div>
             </div>
         </nav>
-        
-        
+
+        <div class="flex-grow-1">
             {% block content %}
             {% endblock %}
-            <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+        </div>
+        
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 
+        <script>
+            function openMailto() {
+                const email = "example@example.com";
+                const subject = "";
+                const body = "";
+                const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;            
+                window.open(gmailUrl, '_blank');
+            }
+            
+            function openWhatsApp() {
+                const phoneNumber = "1234567890"; 
+                const message = "Hola";
+                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+            }
+        </script>
+        
+        {% block script %}
+        {% endblock %}
 
-            <script>
-                window.addEventListener('scroll', () => {
-                const {scrollTop, scrollHeight, clientHeight} = document.documentElement;
-                if (scrollTop + clientHeight >= scrollHeight) {
-                    document.getElementById('footer').style.display = 'block';
-                }});      
-                
-                
-                function openMailto() {
-                        const email = "example@example.com";
-                        const subject = "";
-                        const body = "";
-                        const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;            
-                        window.open(gmailUrl, '_blank');
-                }
-                
-                function openWhatsApp() {
-                    const phoneNumber = "1234567890"; 
-                    const message = "Hola";
-                    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-                    window.open(whatsappUrl, '_blank');
-                }
-
-            </script>
-            {% block script %}
-            {% endblock %}
-
-
-    </body>
-
-    <footer id="footer" class="bg-light">
-        <div class="container">
-            <div class="row p-2">
-                <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
-                    <h5 class="text-uppercase">Información de contacto</h5>
-                    <div class = "p-2">
-                        <a>Correo electrónico: </a>
-                        <span class="btn btn-outline-danger" onclick="openMailto()">example@example.com</span>
-                    </div>
-                    <div>
-                        <a>Teléfono:</a>
-                        <span class="btn btn-outline-success" onclick="openWhatsApp()">123456789</spam>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-12 mb-4 mb-md-0 text-end" >
-                    <h5 class="text-uppercase">Síguenos en redes sociales</h5>
-                    <ul class="list-unstyled mb-0">
-                        <div class="btn-group-vertical">
-                            <button type="button" class="btn btn-outline-dark">Facebook</button>
-                            <button type="button" class="btn btn-outline-dark">Twitter</button>
-                            <button href="https://www.instagram.com/yamato_judo/" target="_blank" type="button" class="btn btn-outline-dark">Instagram</button>
+        <footer id="footer" class="mt-auto bg-light">
+            <div class="container ">
+                <div class="row p-2">
+                    <div class="col-lg-6 col-md-12 mb-4 mb-md-0 ">
+                        <h5 class="text-uppercase">Información de contacto</h5>
+                        <div class="p-2">
+                            <a>Correo electrónico: </a>
+                            <span class="btn btn-outline-danger" onclick="openMailto()">example@example.com</span>
                         </div>
-                    </ul>
+                        <div>
+                            <a>Teléfono:</a>
+                            <span class="btn btn-outline-success" onclick="openWhatsApp()">123456789</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12 mb-4 mb-md-0 text-end">
+                        <h5 class="text-uppercase">Síguenos en redes sociales</h5>
+                        <ul class="list-unstyled mb-0">
+                            <div class="btn-group-vertical">
+                                <a href="https://www.instagram.com/yamato_judo/" target="_blank" type="button" class="btn btn-outline-dark">Instagram</a>
+                            </div>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="text-center p-3 bg-secondary" >
-            © 2024 Judo Yamato
-        </div>
-    </footer>
-    
-    
-
-
-
+            <div class="text-center text-light p-3 bg-dark">
+                © 2024 Judo Yamato
+            </div>
+        </footer>
+    </body>
 </html>

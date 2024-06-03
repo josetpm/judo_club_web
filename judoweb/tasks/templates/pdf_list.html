@@ -1,35 +1,34 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="p-3">
+<div class="p-3 text-light">
     <h2>List of PDFs</h2>
     
     <select class="filtrarEvento" id="filtroEvento" name='evento_id'>
         <option value="">All</option>
         {% for evento in eventos %}
-            <option value={{evento.id}}>{{evento.nombre}}</option>
+            <option value="{{ evento.id }}">{{ evento.nombre }}</option>
         {% endfor %}
-        
     </select>
     <ul>
     {% for pdf in page_obj %}
-        <div class="p-2 bg-dark text-white">
+        <form class="p-2 bg-secondary m-1 text-dark border border-5 border-success rounded">
             <span>Uploaded by: {{ pdf.user.username }}</span>
             <a href="{{ pdf.archivo.url }}">{{ pdf.archivo.name }}</a>
-            <span>{{pdf.evento.nombre}}</span>
-                <div class="d-inline">
-                    {% if user.is_superuser %}
-                        <select name="estado" class="actualizarPDF" data-id="{{ pdf.id }}">
-                            <option value="pagado" {% if pdf.estado == 'pagado' %} selected {% endif %}>Pagado</option>
-                            <option value="pendiente" {% if pdf.estado == 'pendiente' %} selected {% endif %}>Pendiente</option>
-                            <option value="rechazado" {% if pdf.estado == 'rechazado' %} selected {% endif %}>Rechazado</option>
-                        </select>
-                    {% else %}
-                    <span>
-                        {{pdf.estado}}
-                    </span>
+            <span>{{ pdf.evento.nombre }}</span>
+            <div class="d-inline">
+                {% if user.is_superuser %}
+                    <select name="estado" class="actualizarPDF" data-id="{{ pdf.id }}">
+                        <option value="pagado" {% if pdf.estado == 'pagado' %} selected {% endif %}>Pagado</option>
+                        <option value="pendiente" {% if pdf.estado == 'pendiente' %} selected {% endif %}>Pendiente</option>
+                        <option value="rechazado" {% if pdf.estado == 'rechazado' %} selected {% endif %}>Rechazado</option>
+                    </select>
+                {% else %}
+                <span>
+                    {{ pdf.estado }}
+                </span>
                 {% endif %}
-                </div>
-        </div>
+            </div>
+        </form>
     {% endfor %}
     </ul>
 </div>
