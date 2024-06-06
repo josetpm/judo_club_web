@@ -10,7 +10,7 @@ class PDFForm(forms.ModelForm):
 
     class Meta:
         model = PDF
-        fields = ["archivo", "evento"]
+        fields = ["evento", "archivo"]
 
     def clean_archivo(self):
         archivo = self.cleaned_data["archivo"]

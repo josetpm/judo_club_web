@@ -38,7 +38,7 @@ class PDF(models.Model):
         max_length=50,
         default="pendiente",
         choices=[
-            ("pagado", "Pagado"),
+            ("aceptado", "Aceptado"),
             ("pendiente", "Pendiente"),
             ("rechazado", "Rechazado"),
         ],

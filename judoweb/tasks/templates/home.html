@@ -3,7 +3,7 @@
 
 <main class="container py-3 ">
     <section class="card card-body bg-dark text-light ">
-        <h1 class="display-1 text-center">HOME</h1>
+        <h1 class="display-1 text-center">INICIO</h1>
         {% for noticia in noticias %}
         <div >
             <div class="row g-0 m-3 border border-success border-5 card-body text-dark bg-secondary rounded">
@@ -14,7 +14,7 @@
                 <div class="col-md-8 ">
                     <div class="card-body">
                         <h5 class="card-title">{{ noticia.titulo }}</h5>
-                        <p class="card-text">{{ noticia.descripcion }}</p>
+                        <span class="card-text descripcion">{% autoescape off %}{{ noticia.descripcion|urlize }}{% endautoescape %}</span><br>
                         <small class="card-text">Publicado el {{ noticia.fecha_publicacion }}</small>
                         {% if user.is_superuser %}
                             <form class="py-2" method="post" action="{% url 'delete_noticia' noticia.id %}">
@@ -155,6 +155,25 @@ $(document).ready(function() {
         modal.find('#descripcion').val(noticiaDescription);
     });
 });
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.descripcion').forEach(function(el) {
+        el.innerHTML = convertirEnlaces(el.textContent);
+    });
+
+    document.querySelectorAll('[contenteditable]').forEach(function(el) {
+        el.addEventListener('blur', function() {
+            el.innerHTML = convertirEnlaces(el.textContent);
+        });
+    });
+});
+
+function convertirEnlaces(texto) {
+    var patronEnlace = /(\bhttps?:\/\/[^\s]+)/g;
+    return texto.replace(patronEnlace, '<br><a class="btn btn-success" href="$1" target="_blank">PDF Inscripción </a>');
+}
 
 </script>
 

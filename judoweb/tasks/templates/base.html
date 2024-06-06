@@ -18,28 +18,28 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a href="/home" class="nav-link">Home</a>                
+                            <a href="/home" class="nav-link">Inicio</a>                
                         </li> 
                         <li class="nav-item">
-                            <a href="/calendar" class="nav-link">Calendar</a>
+                            <a href="/calendar" class="nav-link">Calendario</a>
                         </li>
                         {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a href="/logout" class="nav-link">Logout</a>
+                            <a href="/logout" class="nav-link">Salir</a>
                         </li>
                         <li class="nav-item">
-                            <a href="/uploadpdf" class="nav-link">Uploadpdf</a>
+                            <a href="/uploadpdf" class="nav-link">Subir PDF</a>
                         </li>     
                         {% else %}
                         <li class="nav-item">
-                            <a href="/signup" class="nav-link">Signup</a>
+                            <a href="/signup" class="nav-link">Crear cuenta</a>
                         </li>
                         <li class="nav-item">
-                            <a href="/signin" class="nav-link">Signin</a>
+                            <a href="/signin" class="nav-link">Iniciar sesion</a>
                         </li>                        
                         {% endif %}
                         <li class="nav-item">
-                            <a href="/pdf-list" class="nav-link">PDF-List</a>
+                            <a href="/pdf-list" class="nav-link">Lista PDF</a>
                         </li>   
                     </ul>
                 </div>
@@ -80,20 +80,21 @@
                 <div class="row p-2">
                     <div class="col-lg-6 col-md-12 mb-4 mb-md-0 ">
                         <h5 class="text-uppercase">Información de contacto</h5>
-                        <div class="p-2">
-                            <a>Correo electrónico: </a>
+                        <div class="m-2">
+                            <a>Email: </a>
                             <span class="btn btn-outline-danger" onclick="openMailto()">example@example.com</span>
                         </div>
-                        <div>
-                            <a>Teléfono:</a>
+                        <div class="m-2">
+                            <a>WhatsApp:</a>
                             <span class="btn btn-outline-success" onclick="openWhatsApp()">123456789</span>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-12 mb-4 mb-md-0 text-end">
                         <h5 class="text-uppercase">Síguenos en redes sociales</h5>
                         <ul class="list-unstyled mb-0">
-                            <div class="btn-group-vertical">
-                                <a href="https://www.instagram.com/yamato_judo/" target="_blank" type="button" class="btn btn-outline-dark">Instagram</a>
+                            <div class="btn-group-vertical m-2">
+                                <a href="https://www.instagram.com/yamato_judo/" target="_blank" type="button" class="btn btn-outline-success">Instagram</a>
+                                <a href="https://www.instagram.com/yamato_judo/" target="_blank" type="button" class="btn btn-outline-primary">Facebook</a>
                             </div>
                         </ul>
                     </div>

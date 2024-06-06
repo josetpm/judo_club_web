@@ -6,7 +6,7 @@
     <title>Judo Yamato-Calendar</title>
 </head> 
 
-<main class="container py-5">
+<main class="container py-3">
     <section class="card card-body d-flex justify-content-center align-items-center bg-dark">
         <div >
             <h1 class="display-1 text-light text-center">CALENDAR</h1>
@@ -34,7 +34,7 @@
                             
                             {% if comment.user == request.user or request.user.is_superuser %}
                             
-                                <a title= "Eliminar" class="btn text-right bg-danger btn-sm" type="submit" > X </a>
+                                <button title= "Eliminar" class="btn text-right bg-danger btn-sm" type="submit" > X </button>
                             
                             {% endif %}
                             {{ comment.user.username }}: {{ comment.text }}
@@ -47,7 +47,7 @@
                         {% csrf_token %}
                         <textarea name="text" id="comment-text" rows="4" cols="50" maxlength="250"></textarea><br>
                         <span id="char-count">150</span> caracteres restantes<br>
-                        <a type="submit" class="btn bg-success text-light m-2" id="submit-btn">Enviar Comentario</a>
+                        <button type="submit" class="btn bg-success text-light m-2" id="submit-btn">Enviar Comentario</button>
                     </form>
                     
                 </div>

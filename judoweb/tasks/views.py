@@ -67,6 +67,8 @@ def delete_noticia(request, noticia_id):
     return render(request, "home.html", {"noticias": Noticia.objects.all()})
 
 
+@user_passes_test(lambda u: u.is_superuser)
+@login_required
 def edit_noticia(request):
     noticia = get_object_or_404(Noticia, pk=request.POST["id"])
 
@@ -122,16 +124,7 @@ def calendar_view(request):
     return render(request, "calendar.html", {"comments": comments, "form": form})
 
 
-def delete_comment(request, comment_id):
-    comment = get_object_or_404(Comment, id=comment_id)
-    if request.method == "POST":
-        if comment.user == request.user:
-            comment.delete()
-            return redirect("calendar")
-    return redirect("calendar")
-
-
-@permission_required("judoweb.message_permissions")
+@login_required
 def delete_comment(request, comment_id):
     comment = get_object_or_404(Comment, id=comment_id)
 

@@ -18,7 +18,7 @@
             <div class="d-inline">
                 {% if user.is_superuser %}
                     <select name="estado" class="actualizarPDF" data-id="{{ pdf.id }}">
-                        <option value="pagado" {% if pdf.estado == 'pagado' %} selected {% endif %}>Pagado</option>
+                        <option value="aceptado" {% if pdf.estado == 'aceptado' %} selected {% endif %}>Aceptado</option>
                         <option value="pendiente" {% if pdf.estado == 'pendiente' %} selected {% endif %}>Pendiente</option>
                         <option value="rechazado" {% if pdf.estado == 'rechazado' %} selected {% endif %}>Rechazado</option>
                     </select>

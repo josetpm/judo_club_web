@@ -6,13 +6,13 @@
     <div class="row justify-content-center mt-5">
         <div class="col-md-4 "> 
             <form method="POST" class="card card-body border-success border-5 card-body text-light bg-dark" enctype="multipart/form-data">
-                <h2>Upload PDF</h2>
+                <h2 class='mb-4'>Subir PDF</h2>
                 {{ message }}                
                 {% csrf_token %}
                 {{ form.as_p }}
                 <input type="hidden" name="user" value="{{ user.id }}">
                 <button type="submit" disabled id="submit-button" class="btn btn-success" disabled>
-                    Upload PDF
+                    Subir PDF
                 </button>
             </form>
         </div>
